@@ -110,21 +110,24 @@ export class ClientFormComponent {
 
 ## Entidades — @Type
 
-Todas las propiedades de entidades deben llevar `@Type`, incluyendo primitivos.
+Todas las propiedades de entidades que sean objetos, fechas o arrays deben llevar `@Type`. Los primitivos (`string`, `number`, `boolean`) no lo necesitan.
 
 ```typescript
 // ✅
 export class Client {
-  @Type() id: number;
-  @Type() name: string;
+  id: number;           // primitivo — sin @Type
+  name: string;         // primitivo — sin @Type
+  active: boolean;      // primitivo — sin @Type
+
   @Type(() => Date) createdAt: Date;
   @Type(() => Address) address: Address;
+  @Type(() => Property) properties: Property[];
 }
 
 // ❌
 export class Client {
-  id: number;
-  name: string;
+  createdAt: Date;      // objeto — necesita @Type
+  address: Address;     // objeto — necesita @Type
 }
 ```
 
@@ -168,6 +171,6 @@ ngOnDestroy() { this.destroy$.next(); this.destroy$.complete(); }
 | Módulos | NgModule (feature + shared) | Standalone components |
 | Inyección | `inject()` | Constructor |
 | Formularios | `FormService` | `FormBuilder` directo |
-| Entidades | `@Type()` en todas las props | Props sin decorar |
+| Entidades | `@Type()` en objetos, fechas y arrays | `@Type()` en primitivos, o sin decorar objetos |
 | Estado | `signal()` | `BehaviorSubject` |
 | Suscripciones | `takeUntilDestroyed()` | `ngOnDestroy` + Subject |
