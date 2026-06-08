@@ -34,6 +34,9 @@ Plugins (`spdd`) require a restart to load the first time. Simple skills are det
 
 ## Using the SPDD skill
 
+> Based on [Structured Prompt-Driven Development](https://martinfowler.com/articles/structured-prompt-driven/) by Martin Fowler.
+
+
 Before implementing any new feature:
 
 ```

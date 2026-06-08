@@ -3,6 +3,8 @@
 > Generated on [DATE]. Review lines marked ⚠️ before generating code.
 > Golden rule: if something breaks during development, fix this canvas first, then the code.
 
+**Status:** Draft
+
 ---
 
 ## Requirements

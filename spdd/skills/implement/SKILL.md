@@ -9,12 +9,11 @@ allowed-tools: Read Write Edit Bash AskUserQuestion
 
 ### Step 1 — Locate the canvas
 
-If $ARGUMENTS is provided, use that file. Otherwise, find the most recent canvas:
+If $ARGUMENTS is provided, use that file. Otherwise, list recent canvases:
 
 !`ls -t docs/prompts/SPDD-*.md 2>/dev/null | head -5`
 
-If the list is empty, stop and tell the user to run `/spdd` first.
-If multiple canvases exist and no argument was given, ask the user which one to use.
+If empty, stop and tell the user to run `/spdd:canvas` first. If multiple exist and no argument was given, ask which one to use.
 
 ### Step 2 — Read the canvas
 
@@ -22,31 +21,44 @@ Read the canvas file in full.
 
 ### Step 3 — Check for unresolved items
 
-Search the canvas for any `⚠️ Confirm:` lines.
+If any `⚠️ Confirm:` lines exist: stop, list them, and ask the user to confirm each one. Replace each with the confirmed value.
 
-If any exist: **STOP**. List every unresolved item clearly and ask the user to confirm each one. Once confirmed, update the canvas replacing each `⚠️ Confirm:` line with the confirmed value, then continue.
+Then set `**Status:** Confirmed` in the canvas header before proceeding.
 
-### Step 4 — Implement section by section
+### Step 4 — Ensure the SPDD hook is present
 
-Follow the canvas in this order:
-1. **Entities** — create models, migrations, interfaces
-2. **Structure** — create the listed files/directories
-3. **Operations** — implement endpoints, commands, or UI actions
-4. **Norms** — apply every checked convention
-5. **Safeguards** — write the listed tests
+Check whether `.claude/settings.local.json` already contains the SPDD guard hook:
 
-### Step 5 — Handle divergences
+```bash
+grep -q 'SPDD' .claude/settings.local.json 2>/dev/null && echo "exists" || echo "missing"
+```
 
-If during implementation you discover the canvas is wrong, incomplete, or needs to change:
-1. **Stop coding immediately**
-2. Explain the divergence to the user in plain terms
-3. Propose the exact canvas update
-4. Update the canvas once the user confirms
-5. Resume implementation from where you stopped
+If **missing**, ask the user whether to add it. If confirmed, merge the following into `hooks.PreToolUse` (create the key if absent) and write back to `.claude/settings.local.json`:
 
-### Step 6 — Report
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "unresolved=$(grep -rl '⚠️ Confirm:' docs/prompts/SPDD-*.md 2>/dev/null); if [ -n \"$unresolved\" ]; then echo \"SPDD WARNING: unresolved canvas items in: $unresolved — review before editing code.\"; fi"
+    }
+  ]
+}
+```
 
-When done:
-- List all files created or modified
-- Note any canvas sections updated during implementation
-- Remind the user to run the test suite
+### Step 5 — Implement
+
+Follow the canvas sections in order. If you discover the canvas is wrong or incomplete: stop, explain the divergence, propose the canvas update, and resume once the user confirms.
+
+### Step 6 — Run tests
+
+Detect and run the project's test suite. If tests fail, fix the issues before continuing.
+
+### Step 7 — Mark the canvas as implemented
+
+Set `**Status:** Implemented` in the header and add `> Implemented: YYYY-MM-DD` below it.
+
+### Step 8 — Report
+
+List all files created or modified, any canvas sections updated, and the test results summary.
