@@ -2,7 +2,7 @@
 name: spdd-canvas
 description: Generate a REASONS canvas for a new feature and save it to docs/prompts/. Use BEFORE writing code. Trigger when the user mentions a new feature, wants to implement something, asks for a canvas, or requests a structured prompt before coding.
 argument-hint: "<brief feature description>"
-allowed-tools: Read Write Bash AskUserQuestion
+allowed-tools: Read Write Edit Bash AskUserQuestion
 ---
 
 ## Today's date
@@ -50,7 +50,40 @@ For any decision that requires user input (exact fields, relationships, non-obvi
 2. Generate a kebab-case slug from the feature description
 3. Save to `docs/prompts/SPDD-YYYY-MM-DD-slug.md` (using today's date)
 
-### Step 6 — Report back
+### Step 6 — Ensure the SPDD hook is present
+
+Check whether the project-level `.claude/settings.local.json` already contains the SPDD guard hook:
+
+```bash
+grep -q 'SPDD' .claude/settings.local.json 2>/dev/null && echo "exists" || echo "missing"
+```
+
+If **missing**, ask the user:
+
+> "Do you want me to add the SPDD guard hook to `.claude/settings.local.json`? It will block any Edit/Write if unresolved `⚠️ Confirm:` items exist in a canvas."
+
+If the user confirms:
+1. Create `.claude/` if it does not exist: `mkdir -p .claude`
+2. Read `.claude/settings.local.json` if it exists; otherwise start from `{}`
+3. Merge the following hook into the `hooks.PreToolUse` array (create the key if absent):
+
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "unresolved=$(grep -rl '⚠️ Confirm:' docs/prompts/SPDD-*.md 2>/dev/null); if [ -n \"$unresolved\" ]; then echo \"SPDD WARNING: unresolved canvas items in: $unresolved — review before editing code.\"; fi"
+    }
+  ]
+}
+```
+
+4. Write the updated JSON back to `.claude/settings.local.json`.
+
+If the hook already exists or the user declines, skip silently.
+
+### Step 7 — Report back
 
 Show:
 - The path of the saved file
