@@ -5,7 +5,7 @@ description: Guidelines for creating or editing a CLAUDE.md file for a project o
 
 # Project CLAUDE.md Guidelines
 
-Answers WHY, WHAT and HOW. Only instructions applicable to **all** tasks in the project.
+Answers WHAT and HOW. Only instructions applicable to **all** tasks in the project.
 Task-specific content goes in `agent_docs/`.
 
 **Structure** (no empty sections):
@@ -16,7 +16,7 @@ Task-specific content goes in `agent_docs/`.
 5. `## Agent Docs` — list of `agent_docs/*.md` with one-line description each
 6. `## Gotchas` — only what Claude cannot infer from the code
 
-**Limits:** max 80 lines. No snippets. No style guides. No personal preferences.
+**Limits:** max 80 lines. No snippets except for non-obvious patterns that a paragraph cannot convey clearly. No style guides. No personal preferences.
 
 **agent_docs/** for topic-specific instructions — Claude decides what to read per task:
 `building.md` · `testing.md` · `architecture.md` · `deployment.md`
