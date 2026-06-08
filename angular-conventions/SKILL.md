@@ -1,21 +1,21 @@
 ---
 name: angular-conventions
-description: Convenciones obligatorias de Angular. Activar SIEMPRE antes de escribir, modificar o revisar cualquier código Angular (.ts, .html, .scss), ya sea un componente, servicio, módulo, entidad, guard, pipe, interceptor o formulario. También activar ante cualquier mención de NgModule, inject(), FormService, @Type, signal, takeUntilDestroyed, SharedModule o cualquier elemento del stack Angular.
+description: Mandatory Angular conventions. Activate ALWAYS before writing, modifying, or reviewing any Angular code (.ts, .html, .scss) — components, services, modules, entities, guards, pipes, interceptors, or forms. Also activate on any mention of NgModule, inject(), FormService, @Type, signal, takeUntilDestroyed, SharedModule, or any Angular stack element.
 ---
 
 # Angular Conventions
 
-Convenciones **obligatorias**. Aplícalas siempre, incluso si el código existente no las sigue.
+**Mandatory** conventions. Apply always, even if existing code does not follow them.
 
-## Módulos
+## Modules
 
-Estructura **NgModule** — nunca standalone components.
-- **Feature modules** — uno por feature
-- **SharedModule** — componentes, pipes y directivas reutilizables
+**NgModule** structure — never standalone components.
+- **Feature modules** — one per feature
+- **SharedModule** — reusable components, pipes, and directives
 
-## Inyección de dependencias
+## Dependency Injection
 
-Siempre `inject()`, nunca constructor injection.
+Always `inject()`, never constructor injection.
 
 ```typescript
 // ✅
@@ -25,9 +25,9 @@ private clientService = inject(ClientService);
 constructor(private clientService: ClientService) {}
 ```
 
-## Formularios
+## Forms
 
-`FormService` de `@digitalascetic/ngx-form`. Nunca `FormBuilder` o `FormGroup` directamente.
+Use `FormService` from `@digitalascetic/ngx-form`. Never use `FormBuilder` or `FormGroup` directly.
 
 ```typescript
 import { FormService } from '@digitalascetic/ngx-form';
@@ -37,7 +37,7 @@ const obj = this.client ?? Client;
 form = this.formService.getControl(obj);
 ```
 
-API disponible:
+Available API:
 ```typescript
 this.formService.getControl(obj, propertiesObj?, options?)
 this.formService.updateFromControl(object, control, updateJustModifiedValues?)
@@ -49,9 +49,9 @@ this.formService.reorderByValues(arrayControl, 'order', reorderedValues, pristin
 this.formService.reorderByProperty(arrayControl, 'order')
 ```
 
-## Entidades — @Type
+## Entities — @Type
 
-Todas las propiedades llevan `@Type`. Con función `() => Tipo` en objetos, fechas y arrays; sin función en primitivos.
+All properties must have `@Type`. Use arrow function `() => Type` for objects, dates, and arrays; no function for primitives.
 
 ```typescript
 export class Client {
@@ -63,9 +63,9 @@ export class Client {
 }
 ```
 
-## Estado local
+## Local State
 
-`signal()` para estado local, nunca `BehaviorSubject` en componentes.
+Use `signal()` for local state, never `BehaviorSubject` in components.
 
 ```typescript
 // ✅
@@ -75,9 +75,9 @@ clients = signal<Client[]>([]);
 clients$ = new BehaviorSubject<Client[]>([]);
 ```
 
-## Suscripciones
+## Subscriptions
 
-Siempre `takeUntilDestroyed()`, nunca `ngOnDestroy` + `Subject`.
+Always use `takeUntilDestroyed()`, never `ngOnDestroy` + `Subject`.
 
 ```typescript
 private destroyRef = inject(DestroyRef);

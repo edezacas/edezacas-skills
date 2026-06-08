@@ -1,66 +1,103 @@
 # Claude Skills
 
-Skills compartidos del equipo para Claude Code. Se cargan automáticamente cuando Claude detecta que la tarea es relevante.
+Team shared skills for Claude Code. Loaded automatically when Claude detects the task is relevant.
 
-## Skills disponibles
+## Available skills
 
-| Skill | Descripción |
-|---|---|
-| `angular-conventions` | Convenciones obligatorias de Angular: `inject()`, `FormService`, `@Type`, signals, `takeUntilDestroyed` |
-| `init-project` | Guía para crear y editar `CLAUDE.md` en cualquier proyecto |
+| Skill | Commands | Description |
+|---|---|---|
+| `angular-conventions` | automatic | Mandatory Angular conventions: `inject()`, `FormService`, `@Type`, signals, `takeUntilDestroyed` |
+| `init-project` | automatic | Guide for creating and editing `CLAUDE.md` in any project |
+| `spdd` | `/spdd:canvas`, `/spdd:implement` | Structured Prompt-Driven Development: generates and executes REASONS canvas before writing code |
 
-## Instalación
+## Installation
 
-### 1. Clona el repositorio
+### 1. Clone the repository
 
 ```bash
 git clone git@github.com:edezacas/claude-skills.git ~/projects/claude-skills
 ```
 
-### 2. Crea los symlinks
+### 2. Create symlinks
 
 ```bash
 mkdir -p ~/.claude/skills
+
 ln -s ~/projects/claude-skills/angular-conventions ~/.claude/skills/angular-conventions
 ln -s ~/projects/claude-skills/init-project ~/.claude/skills/init-project
+ln -s ~/projects/claude-skills/spdd ~/.claude/skills/spdd
 ```
 
-### 3. Añade la referencia en el `CLAUDE.md` de cada proyecto Angular
+### 3. Restart Claude Code
 
-```markdown
-## Gotchas
-- **Angular conventions**: always load and follow the `angular-conventions` skill before writing any Angular code.
+Plugins (`spdd`) require a restart to load the first time. Simple skills are detected on the fly.
+
+## Using the SPDD skill
+
+Before implementing any new feature:
+
+```
+/spdd:canvas magic link authentication
 ```
 
-## Actualizar los skills
+Claude generates a REASONS canvas at `docs/prompts/SPDD-YYYY-MM-DD-slug.md` with the feature design adapted to the project stack.
 
-Cuando alguien actualice un skill, el resto del equipo solo necesita:
+Once the canvas is reviewed:
+
+```
+/spdd:implement
+```
+
+Claude reads the canvas, checks for unresolved decisions (`⚠️ Confirm:`), implements step by step, and updates the canvas if anything diverges during development.
+
+## Updating skills
+
+When someone updates a skill, the rest of the team only needs:
 
 ```bash
 cd ~/projects/claude-skills && git pull
 ```
 
-No hace falta recrear los symlinks.
+No need to recreate the symlinks.
 
-## Añadir un nuevo skill
+## Adding a new skill
 
-1. Crea una carpeta con el nombre del skill
-2. Añade un `SKILL.md` con el siguiente formato:
+### Simple skill
+
+1. Create a folder with the skill name
+2. Add a `SKILL.md`:
 
 ```markdown
 ---
-name: nombre-del-skill
-description: Descripción de cuándo y cómo usarlo.
+name: skill-name
+description: Description of when and how to use it.
 ---
 
-# Nombre del Skill
-
-Instrucciones para Claude...
+Instructions for Claude...
 ```
 
-3. Haz push al repo
-4. Cada miembro del equipo crea su symlink:
+3. Push and create the symlink:
 
 ```bash
-ln -s ~/projects/claude-skills/nombre-del-skill ~/.claude/skills/nombre-del-skill
+ln -s ~/projects/claude-skills/skill-name ~/.claude/skills/skill-name
+```
+
+### Plugin (multiple commands with namespace)
+
+1. Create a folder with the plugin name
+2. Add `.claude-plugin/plugin.json`:
+
+```json
+{
+  "name": "plugin-name",
+  "displayName": "Plugin Name",
+  "description": "Brief description."
+}
+```
+
+3. Create skills in `skills/<name>/SKILL.md` — commands will be available as `/plugin-name:name`
+4. Push and create the symlink:
+
+```bash
+ln -s ~/projects/claude-skills/plugin-name ~/.claude/skills/plugin-name
 ```
