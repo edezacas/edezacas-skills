@@ -55,10 +55,24 @@ Follow the canvas sections in order. If you discover the canvas is wrong or inco
 
 Detect and run the project's test suite. If tests fail, fix the issues before continuing.
 
-### Step 7 — Mark the canvas as implemented
+### Step 7 — Generate feature documentation
+
+Save a feature doc to `docs/features/SLUG.md` (same slug as the canvas, no date prefix). Create the directory if needed.
+
+Write it so anyone on the team can use it — developer, product owner, technical writer, or someone preparing a demo or user manual. Structure it in this order:
+
+- **What it does** — one paragraph, plain language, no technical jargon
+- **Business rules** — the logic and constraints that govern this feature
+- **Flows** — step-by-step description of how the feature works: user interactions if it's UI-facing, or system behavior if it's a background job, webhook, integration, etc.
+- **How it connects** — which other features, entities, or services it interacts with
+- **Technical notes** — key files with a one-line description each, and implementation decisions worth preserving
+
+The first three sections should be readable by anyone. The last two are for developers.
+
+### Step 8 — Mark the canvas as implemented
 
 Set `**Status:** Implemented` in the header and add `> Implemented: YYYY-MM-DD` below it.
 
-### Step 8 — Report
+### Step 9 — Report
 
-List all files created or modified, any canvas sections updated, and the test results summary.
+List all files created or modified, any canvas sections updated, the test results summary, and the path to the generated feature doc.
