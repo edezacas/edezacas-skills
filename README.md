@@ -53,6 +53,38 @@ Once the canvas is reviewed:
 
 Claude reads the canvas, checks for unresolved decisions (`⚠️ Confirm:`), implements step by step, and updates the canvas if anything diverges during development.
 
+## Tests
+
+The `tests/` folder contains an automated test suite for the SPDD skills.
+
+```
+tests/
+  spdd-test-plan.md       # 8 test definitions with criteria
+  spdd-test-results.md    # results written after each run
+  sample-app/             # minimal Express + Prisma app used as test target
+```
+
+### Running the tests
+
+```
+/tests-run
+```
+
+Executes all 8 tests against `tests/sample-app/`, writes results to `tests/spdd-test-results.md`, and reverts any changes to `sample-app/` on completion.
+
+### What the tests cover
+
+| # | Test | What it checks |
+|---|------|----------------|
+| 1 | canvas — guard | Stops and asks for a description when called with no arguments |
+| 2 | canvas — generation quality | Uses real paths, stack entities, minimal `⚠️ Confirm:` lines, correct path and Draft status |
+| 3 | canvas — hook installation | Installs the SPDD pre-tool-use hook; no duplicate on re-run |
+| 4 | implement — unresolved items | Stops before writing code when `⚠️ Confirm:` lines remain |
+| 5 | implement — proceeds | Sets `Status: Confirmed`, follows canvas order, writes code without interruptions |
+| 6 | implement — divergence handling | Stops, explains the discrepancy, and proposes a canvas update |
+| 7 | implement — feature doc | Generates a readable `docs/features/SLUG.md` with all required sections |
+| 8 | implement — final state | Canvas marked `Implemented`, `pnpm build` passes |
+
 ## Updating skills
 
 When someone updates a skill, the rest of the team only needs:
