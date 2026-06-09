@@ -32,6 +32,6 @@ prisma/
 ```
 
 ## Gotchas
-- `DATABASE_URL` apunta a un archivo SQLite local (`file:./dev.db`). No se necesita servidor de base de datos.
+- `DATABASE_URL` apunta a un archivo SQLite local (`file:./dev.db`). No se necesita servidor ni configuración adicional.
 - Prisma client debe regenerarse tras cambiar el schema: `pnpm db:generate`.
 - No hay test runner configurado.
