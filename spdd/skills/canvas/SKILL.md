@@ -19,6 +19,10 @@ Follow these steps in order:
 
 If `$ARGUMENTS` is empty or blank, ask the user for a brief feature description before continuing.
 
+### Step 1.5 — Detect output language
+
+Read `~/.claude/CLAUDE.md`. Use the configured response language for all document content. If none is configured, use the language of the user's request.
+
 ### Step 2 — Read the base template
 
 Read [template-reasons.md](template-reasons.md).

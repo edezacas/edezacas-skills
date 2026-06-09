@@ -7,6 +7,10 @@ allowed-tools: Read Write Edit Bash AskUserQuestion
 
 ## Instructions
 
+### Step 0 — Detect output language
+
+Read `~/.claude/CLAUDE.md`. Use the configured response language for all document content. If none is configured, use the language of the user's request.
+
 ### Step 1 — Locate the canvas
 
 If $ARGUMENTS is provided, use that file. Otherwise, list recent canvases:

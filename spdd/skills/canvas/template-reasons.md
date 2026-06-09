@@ -2,6 +2,7 @@
 
 > Generated on [DATE]. Review lines marked ⚠️ before generating code.
 > Golden rule: if something breaks during development, fix this canvas first, then the code.
+> Language: translate all section headings, labels, placeholder text, and body content to the user's configured language (see Step 1.5 in canvas/SKILL.md).
 
 **Status:** Draft
 
