@@ -181,17 +181,40 @@ Initialize or append a new session block using this structure:
 ...
 ```
 
-Then print a summary table:
+Include a summary table and a one-line verdict at the end of the session block:
 
+```
 | # | Test | Estado |
 |---|------|--------|
 | 1 | canvas — guard | ✅/❌ |
-| 2 | canvas — generation quality | ✅/❌ |
-| 3 | canvas — hook installation | ✅/❌ |
-| 4 | implement — unresolved items | ✅/❌ |
-| 5 | implement — no unresolved items | ✅/❌ |
-| 6 | implement — divergence handling | ✅/❌ |
-| 7 | implement — feature documentation | ✅/❌ |
-| 8 | implement — final state | ✅/❌ |
+...
 
-End with a one-line verdict: overall PASS (all ✅) or FAIL (any ❌) with a count.
+**Veredicto:** PASS/FAIL — X/8
+```
+
+---
+
+### TEARDOWN
+
+After writing the results file, revert all changes made to `tests/sample-app/` so the next test run starts from a clean state.
+
+Run the following commands from the repo root:
+
+```bash
+git checkout -- tests/sample-app/prisma/schema.prisma tests/sample-app/src/index.ts
+git clean -fd tests/sample-app/docs tests/sample-app/.claude tests/sample-app/src/services/magicLinkService.ts tests/sample-app/src/routes/auth.ts
+```
+
+Verify the teardown succeeded:
+
+```bash
+git status --short tests/sample-app/
+```
+
+Expected output: no modified or untracked files inside `tests/sample-app/`.
+
+---
+
+### FINAL OUTPUT
+
+Print the full contents of `tests/spdd-test-results.md` as the last thing you output. Do not add any text after it.
