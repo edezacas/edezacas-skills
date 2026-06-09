@@ -6,7 +6,7 @@ REST API de ejemplo con Express y PostgreSQL. Sirve como app de pruebas para el 
 ## Stack
 - Node.js + TypeScript 5.3
 - Express 4.18
-- Prisma 5.10 (ORM) + PostgreSQL
+- Prisma 5.10 (ORM) + SQLite
 - Zod (validación de schemas)
 - pnpm 9.15
 
@@ -32,6 +32,6 @@ prisma/
 ```
 
 ## Gotchas
-- `DATABASE_URL` requerida en `.env` (ver `.env.example`).
+- `DATABASE_URL` apunta a un archivo SQLite local (`file:./dev.db`). No se necesita servidor de base de datos.
 - Prisma client debe regenerarse tras cambiar el schema: `pnpm db:generate`.
 - No hay test runner configurado.
