@@ -1,26 +1,40 @@
 ---
 name: init-project
-description: Guidelines for creating or editing a CLAUDE.md file for a project or subdirectory. Use when running /init, creating a new CLAUDE.md, or when asked to update an existing one.
+description: Guidelines for creating or editing CLAUDE.md and AGENTS.md for a project or subdirectory. Use when running /init, creating or updating CLAUDE.md or AGENTS.md, or when asked to set up agent configuration files for a project.
 license: Apache-2.0
 metadata:
   author: edezacas
   version: "1.0"
 ---
 
-# Project CLAUDE.md Guidelines
+# Project Agent Configuration Guidelines
 
-Answers WHAT and HOW. Only instructions applicable to **all** tasks in the project.
-Task-specific content goes in `agent_docs/`.
+Two files, same purpose — give the agent context about the project:
 
-**Structure** (no empty sections):
+- **`CLAUDE.md`** — read by Claude Code. May include Claude-specific sections (hooks, auto-triggers, tool permissions).
+- **`AGENTS.md`** — read by OpenAI Codex and other compatible agents. Pure context, no agent-specific syntax.
+
+When both files are needed, generate them together. They share the same core content; only the Claude-specific sections differ.
+
+## Shared structure (no empty sections)
+
 1. `## Overview` — 1-2 lines: what it is and what it does
 2. `## Stack` — key technologies and versions
 3. `## Commands` — build, dev, test, lint
 4. `## Structure` — map of relevant directories
-5. `## Agent Docs` — list of `agent_docs/*.md` with one-line description each
-6. `## Gotchas` — only what Claude cannot infer from the code
+5. `## Gotchas` — only what cannot be inferred from the code
 
-**Limits:** max 80 lines. No snippets except for non-obvious patterns that a paragraph cannot convey clearly. No style guides. No personal preferences.
+**Limits:** max 80 lines each. No snippets except for non-obvious patterns. No style guides. No personal preferences.
 
-**agent_docs/** for topic-specific instructions — Claude decides what to read per task:
+## CLAUDE.md only
+
+Add a `## Claude Code Integration` section if the project uses Claude-specific features (hooks, auto-triggers, tool permissions). Keep it at the end.
+
+## AGENTS.md only
+
+Omit any Claude-specific sections. The file must be readable as plain context by any LLM.
+
+## agent_docs/
+
+For topic-specific instructions the agent decides what to read per task:
 `building.md` · `testing.md` · `architecture.md` · `deployment.md`
