@@ -1,4 +1,4 @@
-# Claude Skills
+# edezacas Skills
 
 Team shared skills for Claude Code. Loaded automatically when Claude detects the task is relevant.
 
