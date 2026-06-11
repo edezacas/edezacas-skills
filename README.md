@@ -8,7 +8,8 @@ Team shared skills for Claude Code. Loaded automatically when Claude detects the
 |---|---|---|
 | `angular-conventions` | automatic | Mandatory Angular conventions: `inject()`, `FormService`, `@Type`, signals, `takeUntilDestroyed` |
 | `init-project` | automatic | Guide for creating and editing `CLAUDE.md` in any project |
-| `spdd` | `/spdd:canvas`, `/spdd:implement` | Structured Prompt-Driven Development: generates and executes REASONS canvas before writing code |
+| `spdd-canvas` | `/spdd-canvas` | Structured Prompt-Driven Development: generates a REASONS canvas before writing code |
+| `spdd-implement` | `/spdd-implement` | Implements a feature from its SPDD canvas |
 
 ## Installation
 
@@ -25,12 +26,13 @@ mkdir -p ~/.claude/skills
 
 ln -s ~/projects/claude-skills/angular-conventions ~/.claude/skills/angular-conventions
 ln -s ~/projects/claude-skills/init-project ~/.claude/skills/init-project
-ln -s ~/projects/claude-skills/spdd ~/.claude/skills/spdd
+ln -s ~/projects/claude-skills/spdd-canvas ~/.claude/skills/spdd-canvas
+ln -s ~/projects/claude-skills/spdd-implement ~/.claude/skills/spdd-implement
 ```
 
 ### 3. Restart Claude Code
 
-Plugins (`spdd`) require a restart to load the first time. Simple skills are detected on the fly.
+Skills are detected on the fly, but a restart ensures all symlinks are picked up.
 
 ## Using the SPDD skill
 
@@ -40,7 +42,7 @@ Plugins (`spdd`) require a restart to load the first time. Simple skills are det
 Before implementing any new feature:
 
 ```
-/spdd:canvas magic link authentication
+/spdd-canvas magic link authentication
 ```
 
 Claude generates a REASONS canvas at `docs/prompts/SPDD-YYYY-MM-DD-slug.md` with the feature design adapted to the project stack.
@@ -48,7 +50,7 @@ Claude generates a REASONS canvas at `docs/prompts/SPDD-YYYY-MM-DD-slug.md` with
 Once the canvas is reviewed:
 
 ```
-/spdd:implement
+/spdd-implement
 ```
 
 Claude reads the canvas, checks for unresolved decisions (`⚠️ Confirm:`), implements step by step, and updates the canvas if anything diverges during development.
@@ -97,9 +99,7 @@ No need to recreate the symlinks.
 
 ## Adding a new skill
 
-### Simple skill
-
-1. Create a folder with the skill name
+1. Create a folder with the skill name (lowercase, hyphens only — matches the agentskills.io spec)
 2. Add a `SKILL.md`:
 
 ```markdown
@@ -115,24 +115,4 @@ Instructions for Claude...
 
 ```bash
 ln -s ~/projects/claude-skills/skill-name ~/.claude/skills/skill-name
-```
-
-### Plugin (multiple commands with namespace)
-
-1. Create a folder with the plugin name
-2. Add `.claude-plugin/plugin.json`:
-
-```json
-{
-  "name": "plugin-name",
-  "displayName": "Plugin Name",
-  "description": "Brief description."
-}
-```
-
-3. Create skills in `skills/<name>/SKILL.md` — commands will be available as `/plugin-name:name`
-4. Push and create the symlink:
-
-```bash
-ln -s ~/projects/claude-skills/plugin-name ~/.claude/skills/plugin-name
 ```

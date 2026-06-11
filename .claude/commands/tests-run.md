@@ -17,7 +17,7 @@ Work through every test in order. Do not skip any. Announce each test before run
 ### SETUP
 
 1. Read `tests/spdd-test-plan.md` to internalize all criteria.
-2. Read `spdd/skills/spdd-canvas/SKILL.md`, `spdd/skills/spdd-canvas/template-reasons.md`, and `spdd/skills/spdd-implement/SKILL.md`.
+2. Read `spdd-canvas/SKILL.md`, `spdd-canvas/assets/template-reasons.md`, and `spdd-implement/SKILL.md`.
 3. Read the full source of `tests/sample-app/`: `CLAUDE.md`, `prisma/schema.prisma`, `src/index.ts`, `src/routes/users.ts`, `src/services/userService.ts`, `src/middleware/auth.ts`.
 4. Clean state: remove `tests/sample-app/docs/` and `tests/sample-app/.claude/` if they exist.
 
@@ -27,7 +27,7 @@ Work through every test in order. Do not skip any. Announce each test before run
 
 **Goal**: verify the skill stops and asks for a description when called with no arguments.
 
-**How**: read `spdd/skills/spdd-canvas/SKILL.md`. Locate Step 1 (Guard). Verify it explicitly handles the case where `$ARGUMENTS` is empty and requires user input before proceeding.
+**How**: read `spdd-canvas/SKILL.md`. Locate Step 1 (Guard). Verify it explicitly handles the case where `$ARGUMENTS` is empty and requires user input before proceeding.
 
 **Criteria**:
 - Does Step 1 check for empty arguments and stop? ✅/❌
@@ -40,7 +40,7 @@ Record result as PASS or FAIL with a one-line note quoting the exact guard logic
 
 **Goal**: verify the canvas generated for `login con magic link` uses real project paths and entities.
 
-**How**: follow the instructions in `spdd/skills/spdd-canvas/SKILL.md` with:
+**How**: follow the instructions in `spdd-canvas/SKILL.md` with:
 - `$ARGUMENTS` = "login con magic link"
 - Base directory = `tests/sample-app/`
 - Save the canvas to `tests/sample-app/docs/prompts/SPDD-YYYY-MM-DD-magic-link-login.md`
@@ -63,7 +63,7 @@ Record PASS if all 5 criteria pass. FAIL with a note for each criterion that fai
 
 **How**:
 1. Verify `tests/sample-app/.claude/settings.local.json` does NOT exist or does not contain "SPDD" before installing.
-2. Follow Step 7 of `spdd/skills/spdd-canvas/SKILL.md`: install the SPDD guard hook into `tests/sample-app/.claude/settings.local.json`.
+2. Follow Step 7 of `spdd-canvas/SKILL.md`: install the SPDD guard hook into `tests/sample-app/.claude/settings.local.json`.
 3. Read the file and verify the JSON is valid and contains the hook command.
 4. Run the installation step again and verify no duplicate hook is added.
 
@@ -82,7 +82,7 @@ Record PASS if both criteria pass.
 **How**:
 1. Read the canvas generated in Test 2.
 2. Ensure it has at least one `⚠️ Confirm:` line. If not, add one (e.g., `⚠️ Confirm: token expiry duration — default 15 minutes`).
-3. Follow Step 1–3 of `spdd/skills/spdd-implement/SKILL.md` against the canvas.
+3. Follow Step 1–3 of `spdd-implement/SKILL.md` against the canvas.
 4. Stop when you reach the `⚠️ Confirm:` check. Do NOT resolve or proceed past it. Do NOT write any code.
 
 **Criteria**:
@@ -100,7 +100,7 @@ Record PASS/FAIL with specific observations.
 
 **How**:
 1. Edit the canvas from Test 2 to replace all `⚠️ Confirm:` lines with concrete resolved values.
-2. Follow the full `spdd/skills/spdd-implement/SKILL.md` against `tests/sample-app/` — implement the magic link login feature completely (Prisma schema changes if needed, service, route, middleware).
+2. Follow the full `spdd-implement/SKILL.md` against `tests/sample-app/` — implement the magic link login feature completely (Prisma schema changes if needed, service, route, middleware).
 
 **Criteria**:
 1. Did the skill set `**Status:** Confirmed` before writing any code?

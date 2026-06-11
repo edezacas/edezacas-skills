@@ -7,7 +7,7 @@ Pick a real project with a small feature to implement. Run each check and note t
 ## 1. canvas — guard
 
 ```
-/spdd:canvas
+/spdd-canvas
 ```
 
 - [ ] Stops and asks for a feature description before continuing
@@ -17,7 +17,7 @@ Pick a real project with a small feature to implement. Run each check and note t
 ## 2. canvas — generation quality
 
 ```
-/spdd:canvas login con magic link
+/spdd-canvas login con magic link
 ```
 
 - [ ] Generates real project paths, not generic placeholders like `src/...`
@@ -30,7 +30,7 @@ Pick a real project with a small feature to implement. Run each check and note t
 
 ## 3. canvas — hook installation
 
-Run `/spdd:canvas` on a project where `.claude/settings.local.json` does not have the SPDD hook yet.
+Run `/spdd-canvas` on a project where `.claude/settings.local.json` does not have the SPDD hook yet.
 
 - [ ] Asks for permission before modifying the file
 - [ ] Adds the hook correctly (open the file and verify the JSON is valid)
@@ -43,7 +43,7 @@ Run `/spdd:canvas` on a project where `.claude/settings.local.json` does not hav
 Open the canvas and leave at least one `⚠️ Confirm:` line unresolved. Then run:
 
 ```
-/spdd:implement
+/spdd-implement
 ```
 
 - [ ] Stops before writing any code
@@ -55,7 +55,7 @@ Open the canvas and leave at least one `⚠️ Confirm:` line unresolved. Then r
 
 ## 5. implement — no unresolved items
 
-Resolve all `⚠️ Confirm:` items manually in the canvas. Then run `/spdd:implement`.
+Resolve all `⚠️ Confirm:` items manually in the canvas. Then run `/spdd-implement`.
 
 - [ ] Does not ask for confirmations (there are none)
 - [ ] Still sets `Status: Confirmed` before proceeding
