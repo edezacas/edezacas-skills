@@ -1,18 +1,10 @@
-# Claude Skills
+# edezacas Skills
 
 ## Overview
 Shared Claude Code skills for the team. Provides automatic and slash-command skills loaded via symlinks into `~/.claude/skills/`.
 
 ## Stack
 - Skills: Markdown (`SKILL.md`) — no build step, agentskills.io format
-- Test app: Node.js · Express · Prisma · SQLite · TypeScript · pnpm
-
-## Commands
-```
-# In tests/sample-app/
-pnpm build           # compile TypeScript
-pnpm db:generate     # regenerate Prisma client
-```
 
 ## Evaluating skills
 
