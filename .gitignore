@@ -1,6 +1,6 @@
 node_modules
 dist
 .env
-!tests/sample-app/.env
 pnpm-lock.yaml
 .claude/settings.local.json
+evals/workspace/
