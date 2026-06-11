@@ -34,3 +34,27 @@ evals/workspace/                 # gitignored — local eval results go here
 
 ## Gotchas
 - `evals/workspace/` is gitignored; results stay local.
+
+## Claude Code Integration
+
+### Auto-triggers
+
+| Skill | When to activate |
+|-------|-----------------|
+| `angular-conventions` | Any Angular file (`.ts`, `.html`, `.scss`) or mention of NgModule, inject(), FormService, @Type, signal, takeUntilDestroyed, SharedModule |
+| `init-project` | Running `/init`, creating or updating a CLAUDE.md file |
+| `spdd-canvas` | User mentions a new feature, asks for a canvas, or requests a structured prompt before coding |
+| `spdd-implement` | User wants to start coding a feature that has a SPDD canvas |
+
+### Tool permissions per skill
+
+| Skill | Tools |
+|-------|-------|
+| `spdd-canvas` | Read, Write, Edit, Bash, AskUserQuestion |
+| `spdd-implement` | Read, Write, Edit, Bash, AskUserQuestion |
+
+### SPDD guard hook
+
+Configured in `.claude/settings.local.json`. Runs before every `Edit` or `Write` and warns if any canvas in `docs/prompts/` has unresolved `⚠️ Confirm:` items.
+
+To install it in a new project, invoke `/spdd-canvas` or `/spdd-implement` — both skills offer to add it automatically.

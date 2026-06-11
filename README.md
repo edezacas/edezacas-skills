@@ -1,6 +1,6 @@
 # edezacas Skills
 
-Team shared skills for Claude Code. Loaded automatically when Claude detects the task is relevant.
+Team shared AI skills in the [agentskills.io](https://agentskills.io) format. Work with Claude Code, OpenAI Codex, VS Code Copilot, and any compatible agent.
 
 ## Available skills
 
@@ -55,37 +55,44 @@ Once the canvas is reviewed:
 
 Claude reads the canvas, checks for unresolved decisions (`⚠️ Confirm:`), implements step by step, and updates the canvas if anything diverges during development.
 
-## Tests
+## Using with other agents
 
-The `tests/` folder contains an automated test suite for the SPDD skills.
+Skills use the agentskills.io format — a directory with a `SKILL.md` file and standard frontmatter (`name`, `description`). Any agent that supports this format can load them directly.
 
-```
-tests/
-  spdd-test-plan.md       # 8 test definitions with criteria
-  spdd-test-results.md    # results written after each run
-  sample-app/             # minimal Express + Prisma app used as test target
-```
+The agentskills.io standard directory is `.agents/skills/`. Place (or symlink) the skill folders there and any compatible agent will discover them automatically.
 
-### Running the tests
-
-```
-/tests-run
+```bash
+mkdir -p .agents/skills
+ln -s ~/projects/edezacas-skills/spdd-canvas .agents/skills/spdd-canvas
+ln -s ~/projects/edezacas-skills/spdd-implement .agents/skills/spdd-implement
+# etc.
 ```
 
-Executes all 8 tests against `tests/sample-app/`, writes results to `tests/spdd-test-results.md`, and reverts any changes to `sample-app/` on completion.
+### OpenAI Codex
 
-### What the tests cover
+Codex activates skills implicitly when the task matches the skill's `description`, or explicitly via `/skills`.
 
-| # | Test | What it checks |
-|---|------|----------------|
-| 1 | canvas — guard | Stops and asks for a description when called with no arguments |
-| 2 | canvas — generation quality | Uses real paths, stack entities, minimal `⚠️ Confirm:` lines, correct path and Draft status |
-| 3 | canvas — hook installation | Installs the SPDD pre-tool-use hook; no duplicate on re-run |
-| 4 | implement — unresolved items | Stops before writing code when `⚠️ Confirm:` lines remain |
-| 5 | implement — proceeds | Sets `Status: Confirmed`, follows canvas order, writes code without interruptions |
-| 6 | implement — divergence handling | Stops, explains the discrepancy, and proposes a canvas update |
-| 7 | implement — feature doc | Generates a readable `docs/features/SLUG.md` with all required sections |
-| 8 | implement — final state | Canvas marked `Implemented`, `pnpm build` passes |
+### VS Code (GitHub Copilot agent mode)
+
+Skills in `.agents/skills/` are discovered automatically. Type `/skills` in the Copilot Chat panel to confirm they appear, then ask anything that matches a skill's description.
+
+### Cursor / Windsurf / other agents without native skill support
+
+Paste the contents of the relevant `SKILL.md` into the agent's system prompt or rules file (`.cursorrules`, `.windsurfrules`, etc.).
+
+Steps marked *(Claude Code only)* in any skill can be skipped.
+
+## Evals
+
+Each skill has an `evals/evals.json` following the [agentskills.io evaluation format](https://agentskills.io/skill-creation/evaluating-skills). Each eval defines a prompt, expected outputs, and verifiable assertions — run with and without the skill to measure its impact.
+
+```
+spdd-canvas/evals/evals.json
+spdd-implement/evals/evals.json
+evals/workspace/             # gitignored — local results go here
+```
+
+See the [agentskills.io docs](https://agentskills.io/skill-creation/evaluating-skills) for the full workspace structure and grading format.
 
 ## Updating skills
 
@@ -108,11 +115,15 @@ name: skill-name
 description: Description of when and how to use it.
 ---
 
-Instructions for Claude...
+Instructions for the agent...
 ```
 
-3. Push and create the symlink:
+3. Push and create the symlink for your agent:
 
 ```bash
+# Claude Code
 ln -s ~/projects/edezacas-skills/skill-name ~/.claude/skills/skill-name
+
+# Other agents (agentskills.io standard)
+ln -s ~/projects/edezacas-skills/skill-name .agents/skills/skill-name
 ```
