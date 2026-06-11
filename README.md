@@ -16,7 +16,7 @@ Team shared skills for Claude Code. Loaded automatically when Claude detects the
 ### 1. Clone the repository
 
 ```bash
-git clone git@github.com:edezacas/claude-skills.git ~/projects/claude-skills
+git clone git@github.com:edezacas/edezacas-skills.git ~/projects/edezacas-skills
 ```
 
 ### 2. Create symlinks
@@ -24,10 +24,10 @@ git clone git@github.com:edezacas/claude-skills.git ~/projects/claude-skills
 ```bash
 mkdir -p ~/.claude/skills
 
-ln -s ~/projects/claude-skills/angular-conventions ~/.claude/skills/angular-conventions
-ln -s ~/projects/claude-skills/init-project ~/.claude/skills/init-project
-ln -s ~/projects/claude-skills/spdd-canvas ~/.claude/skills/spdd-canvas
-ln -s ~/projects/claude-skills/spdd-implement ~/.claude/skills/spdd-implement
+ln -s ~/projects/edezacas-skills/angular-conventions ~/.claude/skills/angular-conventions
+ln -s ~/projects/edezacas-skills/init-project ~/.claude/skills/init-project
+ln -s ~/projects/edezacas-skills/spdd-canvas ~/.claude/skills/spdd-canvas
+ln -s ~/projects/edezacas-skills/spdd-implement ~/.claude/skills/spdd-implement
 ```
 
 ### 3. Restart Claude Code
@@ -92,7 +92,7 @@ Executes all 8 tests against `tests/sample-app/`, writes results to `tests/spdd-
 When someone updates a skill, the rest of the team only needs:
 
 ```bash
-cd ~/projects/claude-skills && git pull
+cd ~/projects/edezacas-skills && git pull
 ```
 
 No need to recreate the symlinks.
@@ -114,5 +114,5 @@ Instructions for Claude...
 3. Push and create the symlink:
 
 ```bash
-ln -s ~/projects/claude-skills/skill-name ~/.claude/skills/skill-name
+ln -s ~/projects/edezacas-skills/skill-name ~/.claude/skills/skill-name
 ```
