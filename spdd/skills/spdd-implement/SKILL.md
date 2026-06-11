@@ -1,6 +1,10 @@
 ---
 name: spdd-implement
 description: Implement a feature from its SPDD canvas. Reads the canvas, checks for unresolved items, implements step by step, and updates the canvas if anything diverges during development. Use when the user wants to start coding a feature that has a SPDD canvas.
+license: Apache-2.0
+metadata:
+  author: edezacas
+  version: "1.0"
 argument-hint: "[SPDD-date-slug.md]"
 allowed-tools: Read Write Edit Bash AskUserQuestion
 ---

@@ -1,6 +1,10 @@
 ---
 name: angular-conventions
 description: Mandatory Angular conventions. Activate ALWAYS before writing, modifying, or reviewing any Angular code (.ts, .html, .scss) — components, services, modules, entities, guards, pipes, interceptors, or forms. Also activate on any mention of NgModule, inject(), FormService, @Type, signal, takeUntilDestroyed, SharedModule, or any Angular stack element.
+license: Apache-2.0
+metadata:
+  author: edezacas
+  version: "1.0"
 ---
 
 # Angular Conventions

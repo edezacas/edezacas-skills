@@ -1,6 +1,10 @@
 ---
 name: spdd-canvas
 description: Generate a REASONS canvas for a new feature and save it to docs/prompts/. Use BEFORE writing code. Trigger when the user mentions a new feature, wants to implement something, asks for a canvas, or requests a structured prompt before coding.
+license: Apache-2.0
+metadata:
+  author: edezacas
+  version: "1.0"
 argument-hint: "<brief feature description>"
 allowed-tools: Read Write Edit Bash AskUserQuestion
 ---

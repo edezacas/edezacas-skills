@@ -1,6 +1,10 @@
 ---
 name: init-project
 description: Guidelines for creating or editing a CLAUDE.md file for a project or subdirectory. Use when running /init, creating a new CLAUDE.md, or when asked to update an existing one.
+license: Apache-2.0
+metadata:
+  author: edezacas
+  version: "1.0"
 ---
 
 # Project CLAUDE.md Guidelines
