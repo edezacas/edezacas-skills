@@ -1,6 +1,1 @@
-node_modules
-dist
-.env
-pnpm-lock.yaml
-.claude/settings.local.json
 evals/workspace/
