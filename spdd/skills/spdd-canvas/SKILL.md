@@ -29,7 +29,7 @@ Read `~/.claude/CLAUDE.md`. Use the configured response language for all documen
 
 ### Step 2 — Read the base template
 
-Read [template-reasons.md](template-reasons.md).
+Read [template-reasons.md](assets/template-reasons.md).
 
 ### Step 3 — Understand the project
 
