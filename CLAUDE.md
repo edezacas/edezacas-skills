@@ -14,14 +14,15 @@ To run evals, load the `evals.json`, execute each prompt against your project (w
 
 ## Structure
 ```
-angular-conventions/SKILL.md     # Angular patterns (auto-triggered)
-init-project/SKILL.md            # CLAUDE.md creation guide (auto-triggered)
-spdd-canvas/SKILL.md             # REASONS canvas generator — /spdd-canvas
+angular-conventions/SKILL.md          # Core Angular patterns (auto-triggered)
+ascetic-angular-conventions/SKILL.md     # Team libs: @Type, FormService (auto-triggered)
+init-project/SKILL.md                 # CLAUDE.md creation guide (auto-triggered)
+spdd-canvas/SKILL.md                  # REASONS canvas generator — /spdd-canvas
 spdd-canvas/assets/template-reasons.md
-spdd-canvas/evals/evals.json     # evals 1–3: guard, generation quality, hook installation
-spdd-implement/SKILL.md          # canvas-driven implementer — /spdd-implement
-spdd-implement/evals/evals.json  # evals 4–8: unresolved items, proceed, divergence, doc, final state
-evals/workspace/                 # gitignored — local eval results go here
+spdd-canvas/evals/evals.json          # evals 1–3: guard, generation quality, hook installation
+spdd-implement/SKILL.md               # canvas-driven implementer — /spdd-implement
+spdd-implement/evals/evals.json       # evals 4–8: unresolved items, proceed, divergence, doc, final state
+evals/workspace/                      # gitignored — local eval results go here
 ```
 
 ## Gotchas
@@ -33,7 +34,8 @@ evals/workspace/                 # gitignored — local eval results go here
 
 | Skill | When to activate |
 |-------|-----------------|
-| `angular-conventions` | Any Angular file (`.ts`, `.html`, `.scss`) or mention of NgModule, inject(), FormService, @Type, signal, takeUntilDestroyed, SharedModule |
+| `angular-conventions` | Any Angular file (`.ts`, `.html`, `.scss`) or mention of NgModule, inject(), signal, takeUntilDestroyed, SharedModule |
+| `ascetic-angular-conventions` | Only when `package.json` or import paths contain `@digitalascetic/ngx-form`, `@digitalascetic/ngx-object-transformer`, or `@digitalascetic/ngx-reflection` |
 | `init-project` | Running `/init`, creating or updating a CLAUDE.md file |
 | `spdd-canvas` | User mentions a new feature, asks for a canvas, or requests a structured prompt before coding |
 | `spdd-implement` | User wants to start coding a feature that has a SPDD canvas |
